@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
 /*  Base style declarations */
-@fontFamily: "Trebuchet MS", "Trebuchet", "Lucida Sans", Arial, sans-serif;
+@fontFamily: "Lucida Sans", "Lucida Sans Unicode", "Helvetica Neue", Arial, sans-serif;
 @fontSize: 14px;
 @bgColor: #8f8f85;
 @headerBGColor: darken(@bgColor, 20%);
 @footerHeight: 40px;
 @textColor: #bebebe;
+@green: #366;
 @blue: #369;
-@green: #336;
 @pink: #c39;
 @purple: #871f96;
 @yellow: #c8df2a;
@@ -22,22 +22,26 @@ html {
 	>body {
 		margin: 0;
 		background: @bgColor;
+		background: linear-gradient(@bgColor, lighten(@bgColor, 5%));
+		background-attachment: fixed;
 		color: @textColor;
 		font-family: @fontFamily;
 		font-size: @fontSize;
 
 		>header {
-			padding: 25px;
+			padding: 20px;
 			background: @headerBGColor;
+			background: linear-gradient(darken(@headerBGColor, 5%), @headerBGColor);
 			overflow: hidden;
 
 			>h1, >h2 { 
 				font-weight: normal;
 				text-align: center;
-				margin: 5px 0;
+				margin: 3px 0;
+				text-shadow: 0 0 1px darken(@headerBGColor, 50%);
 			}
 			>h1 {
-				font-size: @fontSize + 28;
+				font-size: @fontSize + 31;
 			}
 			>h2 {
 				font-size: @fontSize + 11;
@@ -47,6 +51,41 @@ html {
 
 		>div {
 			padding-bottom: 55px;
+
+			>section {
+				position: relative;
+				height: 650px;
+				margin: 25px 0;
+
+				>p {
+					position: absolute;
+					margin: 0;
+					height: 250px;
+					width: 300px;
+					box-shadow: 0 0 5px #000;
+					opacity: 0.9;
+				}
+				>p#one {
+					background: @blue;
+					left: 0
+					top: 0;
+				}
+				>p#two {
+					background: @pink;
+					left: 0;
+					top: 250px;
+				}
+				>p#three {
+					background: @orange;
+					left: 300px;
+					top: 0;
+				}
+				>p#four {
+					background: @green;
+					left: 300px;
+					top: 250px;
+				}
+			}
 		}
 
 		>footer {
