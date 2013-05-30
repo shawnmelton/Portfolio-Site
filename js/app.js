@@ -41,6 +41,9 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 				elem: $("p#four")
 			});
 
+			var timeout = false;
+			var resizeStarted = false;
+			var resizeFinished = false;
 			$(window).resize(function() {
 				adjustBoxes();
 			});
