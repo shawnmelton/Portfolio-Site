@@ -16,12 +16,12 @@ define(["jquery", "box"], function($, Box) {
 		/**
 		 * Fire the animations for all of the boxes.
 		 */
-		animate: function() {
+		move: function(height, width) {
 			for(index in this.items) {
-				this.items[index].animate();
+				this.items[index].animate((height * .01), (width * .01))	;
 			}
 		}
-	}
+	};
 
-	return Boxes;
+	return new Boxes();
 });

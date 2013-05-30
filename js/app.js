@@ -1,42 +1,52 @@
-define(["jquery", "less", "boxes"], function($, less, Boxes){
+define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
+		/**
+		 * Resize and move boxes according to the bounds of the content area.
+		 */
+		var adjustBoxes = function() {
+			Bounds.calculate();
+			Boxes.move(Bounds.getHeight(), Bounds.getWidth());
+		};
+
 		var initialize = function(){
 			// Create objects to map to the boxes in markup.
-			var bx = new Boxes();
-			bx.add({
-				animatedWidth: 300,
-				animatedHeight: 400,
-				animatedLeft: 300,
-				animatedTop: 100,
+			Boxes.add({
+				width: 35,
+				height: 60,
+				left: 15,
+				top: 5,
 				elem: $("p#one")
 			});
 
-			bx.add({
-				animatedWidth: 300,
-				animatedHeight: 200,
-				animatedLeft: 50,
-				animatedTop: 250,
+			Boxes.add({
+				width: 35,
+				height: 40,
+				left: 55,
+				top: 40,
 				elem: $("p#two")
 			});
 
-			bx.add({
-				animatedWidth: 300,
-				animatedHeight: 200,
-				animatedLeft: 575,
-				animatedTop: 25,
+			Boxes.add({
+				width: 40,
+				height: 45,
+				left: 5,
+				top: 45,
 				elem: $("p#three")
 			});
 
-			bx.add({
-				animatedWidth: 200,
-				animatedHeight: 250,
-				animatedLeft: 550,
-				animatedTop: 375,
+			Boxes.add({
+				width: 25,
+				height: 55,
+				left: 70,
+				top: 5,
 				elem: $("p#four")
 			});
 
-			// Move boxes into position.
-			bx.animate();
-		}
+			$(window).resize(function() {
+				adjustBoxes();
+			});
+
+			adjustBoxes();
+		};
 	
 		return {
 			initialize: initialize

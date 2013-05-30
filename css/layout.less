@@ -7,15 +7,11 @@
 @headerBGColor: darken(@bgColor, 20%);
 @footerHeight: 40px;
 @textColor: #bebebe;
-@green: #366;
-@blue: #369;
-@pink: #c39;
-@purple: #871f96;
-@yellow: #c8df2a;
-@orange: #f93;
-@red: #603;
-@lightBlue: #9cf;
-@lightGray: #ccf;
+@blue: #057d9f;
+@pink: #d0006e;
+@purple: #7908aa;
+@yellow: #f3fd00;
+@orange: #ff8100;
 
 /* Style implementations */
 html {
@@ -33,6 +29,7 @@ html {
 			background: @headerBGColor;
 			background: linear-gradient(darken(@headerBGColor, 5%), @headerBGColor);
 			overflow: hidden;
+			border-top: 2px solid fade(@yellow, 80%);
 
 			>h1, >h2 { 
 				font-weight: normal;
@@ -54,8 +51,6 @@ html {
 
 			>section {
 				position: relative;
-				height: 650px;
-				margin: 25px 0;
 
 				>p {
 					position: absolute;
@@ -63,7 +58,9 @@ html {
 					height: 250px;
 					width: 300px;
 					box-shadow: 0 0 5px #000;
-					opacity: 0.9;
+					opacity: 0.8;
+					filter: alpha(opacity=80);
+					cursor: pointer;
 				}
 				>p#one {
 					background: @blue;
@@ -81,7 +78,7 @@ html {
 					top: 0;
 				}
 				>p#four {
-					background: @green;
+					background: @purple;
 					left: 300px;
 					top: 250px;
 				}
@@ -96,8 +93,9 @@ html {
 			height: @footerHeight;
 			line-height: @footerHeight;
 			text-align: center;
-			color: darken(@textColor, 5%);
+			color: lighten(@textColor, 5%);
 			font-size: @fontSize - 2;
+			text-shadow: 0 0 1px #333;
 		}
 	}
 }
