@@ -1,4 +1,4 @@
-define(["jquery"], function($) {
+define(["jquery", "jqueryui"], function($, jui) {
 	/**
 	 * Construct the Box object.
 	 * @param config object properties
@@ -31,8 +31,10 @@ define(["jquery"], function($) {
 				$(this).css("opacity", 1);
 			}, function() {
 				$(this).css("z-index", "");
-				$(this).css("opacity", 0.8);
+				$(this).css("opacity", 0.7);
 			});
+
+			this.properties["elem"].draggable();
 		},
 
 		/**

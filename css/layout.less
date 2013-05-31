@@ -1,17 +1,27 @@
 @charset "UTF-8";
 
+/* Define Droid Sans font */
+@font-face {
+	font-family: 'DroidSans';
+	src: url('../fonts/DroidSans.eot');
+	src: url('../fonts/DroidSans.woff') format('woff'),
+    	url('../fonts/DroidSans.ttf') format('truetype')
+}
+
 /*  Base style declarations */
-@fontFamily: "Lucida Sans", "Lucida Sans Unicode", "Helvetica Neue", Arial, sans-serif;
+@fontFamily: "Droid Sans", "DroidSans", "Lucida Sans", "Lucida Sans Unicode", "Helvetica Neue", Arial, sans-serif;
 @fontSize: 14px;
 @bgColor: #8f8f85;
-@headerBGColor: darken(@bgColor, 20%);
+@headerBGColor: darken(@bgColor, 5%);
 @footerHeight: 40px;
 @textColor: #bebebe;
 @blue: #057d9f;
 @pink: #d0006e;
+@green: #00b25c;
 @purple: #7908aa;
 @yellow: #f3fd00;
 @orange: #ff8100;
+@textDarkenValue: 25%;
 
 /* Style implementations */
 html {
@@ -25,32 +35,77 @@ html {
 		font-size: @fontSize;
 
 		>header {
-			padding: 20px;
+			position: relative;
+			padding: 15px 100px 25px;
 			background: @headerBGColor;
 			background: linear-gradient(darken(@headerBGColor, 5%), @headerBGColor);
 			overflow: hidden;
-			border-top: 2px solid fade(@yellow, 80%);
+			border-left: 5px solid fade(@yellow, 80%);
+			height: 40px;
+			overflow: hidden;
+
+			&:after {
+				content: " ";
+				display: table;
+				clear: both;
+			}
 
 			>h1, >h2 { 
+				float: left;
 				font-weight: normal;
-				text-align: center;
-				margin: 3px 0;
-				text-shadow: 0 0 1px darken(@headerBGColor, 50%);
+				margin: 0;
+				text-shadow: 0 0 1px darken(@textColor, 40%);
 			}
-			>h1 {
-				font-size: @fontSize + 31;
+			>h1 { 
+				font-size: @fontSize + 18;
+				color: darken(@textColor, 5%);
+				margin-right: 35px;
+				line-height: 40px;
 			}
 			>h2 {
 				font-size: @fontSize + 11;
 				text-transform: uppercase;
+				color: darken(@textColor, 8%);
+				line-height: 35px;
+				padding-top: 5px;
+			}
+
+			>div {
+				position: absolute;
+				top: 15px;
+				left: 15px;
+				width: 60px;
+				height: 40px;
+
+				&:after {
+					content: " ";
+					display: table;
+					clear: both;
+				}
+
+				>p {
+					position: relative;
+					margin: 0;
+					width: 33%;
+					height: 50%;
+					float: left;
+
+					&.one { background: @blue; }
+					&.two { background: @pink; }
+					&.three {
+						clear: left;
+						background: @orange;
+					}
+					&.four { background: @purple; }
+					&.five { background: @green; }
+				}
 			}
 		}
 
 		>div {
-			padding-bottom: 55px;
-
 			>section {
 				position: relative;
+				overflow: hidden;
 
 				>p {
 					position: absolute;
@@ -58,29 +113,49 @@ html {
 					height: 250px;
 					width: 300px;
 					box-shadow: 0 0 5px #000;
-					opacity: 0.8;
-					filter: alpha(opacity=80);
+					opacity: 0.7;
+					padding: 15px;
+					filter: alpha(opacity=70);
 					cursor: pointer;
-				}
-				>p#one {
-					background: @blue;
-					left: 0
-					top: 0;
-				}
-				>p#two {
-					background: @pink;
-					left: 0;
-					top: 250px;
-				}
-				>p#three {
-					background: @orange;
-					left: 300px;
-					top: 0;
-				}
-				>p#four {
-					background: @purple;
-					left: 300px;
-					top: 250px;
+
+					>strong {
+						display: block;
+						margin-bottom: 10px;
+						font-size: @fontSize + 5;
+						font-weight: normal;
+						text-transform: uppercase;
+					}
+
+					&#one {
+						background: @blue;
+						left: 0
+						top: 0;
+						color: darken(@blue, @textDarkenValue);
+					}
+					&#two {
+						background: @pink;
+						left: 0;
+						top: 250px;
+						color: darken(@pink, @textDarkenValue);
+					}
+					&#three {
+						background: @orange;
+						left: 300px;
+						top: 0;
+						color: darken(@orange, @textDarkenValue);
+					}
+					&#four {
+						background: @purple;
+						left: 300px;
+						top: 250px;
+						color: darken(@purple, @textDarkenValue);
+					}
+					&#five {
+						background: @green;
+						left: 600px;
+						top: 250px;
+						color: darken(@green, @textDarkenValue);
+					}
 				}
 			}
 		}
@@ -93,9 +168,8 @@ html {
 			height: @footerHeight;
 			line-height: @footerHeight;
 			text-align: center;
-			color: lighten(@textColor, 5%);
-			font-size: @fontSize - 2;
-			text-shadow: 0 0 1px #333;
+			color: darken(@textColor, 35%);
+			font-size: @fontSize - 3;
 		}
 	}
 }

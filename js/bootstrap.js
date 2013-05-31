@@ -3,7 +3,16 @@ require.config({
 
 	paths: {
 		jquery: "libs/jquery",
+		jqueryui: "libs/jqueryui",
 		less: "libs/less"
+	},
+	shim: {
+		"jquery": {
+			exports: "jQuery"
+		},
+		"jqueryui": {
+			deps: ["jquery"]
+		}
 	}
 });
 

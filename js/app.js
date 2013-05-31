@@ -1,4 +1,6 @@
 define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
+		var resizeTimeout = false;
+
 		/**
 		 * Resize and move boxes according to the bounds of the content area.
 		 */
@@ -8,6 +10,8 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 		};
 
 		var initialize = function(){
+			Bounds.setSection($("body > div > section"));
+
 			// Create objects to map to the boxes in markup.
 			Boxes.add({
 				width: 35,
@@ -41,11 +45,26 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 				elem: $("p#four")
 			});
 
+			Boxes.add({
+				width: 15,
+				height: 65,
+				left: 46,
+				top: 20,
+				elem: $("p#five")
+			});
+
+			/**
+			 * When window is resized, then adjust the boxes.
+			 * Wait until the user has completed their drag.
+			 */
 			var timeout = false;
-			var resizeStarted = false;
-			var resizeFinished = false;
 			$(window).resize(function() {
-				adjustBoxes();
+				if(resizeTimeout !== false) {
+					clearTimeout(resizeTimeout);
+					resizeTimeout = false;
+				}
+
+				resizeTimeout = setTimeout(adjustBoxes, 250);
 			});
 
 			adjustBoxes();

@@ -18,7 +18,7 @@ define(["jquery", "box"], function($, Box) {
 		 */
 		move: function(height, width) {
 			for(index in this.items) {
-				this.items[index].animate((height * .01), (width * .01))	;
+				this.items[index].animate((height * .01), (width * .01));
 			}
 		}
 	};
