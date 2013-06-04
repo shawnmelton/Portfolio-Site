@@ -6,11 +6,9 @@ define(["jquery", "jqueryui"], function($, jui) {
 	function Box(config) {
 		this.properties = {
 			elem: null,
-			height: 0,
 			left: 0,
 			speed: 500,
-			top: 0,
-			width: 0
+			top: 0
 		};
 
 		if(typeof config === "object") {
@@ -31,24 +29,29 @@ define(["jquery", "jqueryui"], function($, jui) {
 				$(this).css("opacity", 1);
 			}, function() {
 				$(this).css("z-index", "");
-				$(this).css("opacity", 0.7);
+				$(this).css("opacity", 0.85);
 			});
 
 			this.properties["elem"].draggable();
 		},
 
 		/**
-		 * Adjust this box's height, width, and positioning.
+		 * Reposition the box according to the provided bounds.
 		 */
-		animate: function(height, width) {
+		reposition: function(bounds) {
 			this.properties["elem"].animate({
-				left: (this.properties["left"] * width) +"px",
-				top: (this.properties["top"] * height) +"px",
-				width: (this.properties["width"] * width) +"px",
-				height: (this.properties["height"] * height) +"px"
+				left: (this.properties["left"] * bounds.width * .01) +"px",
+				top: (this.properties["top"] * bounds.height * .01) +"px"
 			}, this.properties["speed"]);
+		},
 
-			this.addEffects();
+		/**
+		 * Resize the box according to the provided bounds.
+		 */
+		resize: function(bounds) {
+			this.properties["elem"].animate({
+				width: (bounds.width * .3) +"px"
+			}, this.properties["speed"]);
 		}
 	};
 

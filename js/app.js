@@ -6,7 +6,7 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 		 */
 		var adjustBoxes = function() {
 			Bounds.calculate();
-			Boxes.move(Bounds.getHeight(), Bounds.getWidth());
+			Boxes.adjust(Bounds.get());
 		};
 
 		var initialize = function(){
@@ -14,44 +14,36 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 
 			// Create objects to map to the boxes in markup.
 			Boxes.add({
-				width: 35,
-				height: 60,
 				left: 15,
 				top: 5,
-				elem: $("p#one")
+				elem: $("#one")
 			});
 
 			Boxes.add({
-				width: 35,
-				height: 40,
 				left: 55,
 				top: 40,
-				elem: $("p#two")
+				elem: $("#two")
 			});
 
 			Boxes.add({
-				width: 40,
-				height: 45,
 				left: 5,
 				top: 45,
-				elem: $("p#three")
+				elem: $("#three")
 			});
 
 			Boxes.add({
-				width: 25,
-				height: 55,
-				left: 70,
+				left: 60,
 				top: 5,
-				elem: $("p#four")
+				elem: $("#four")
 			});
 
 			Boxes.add({
-				width: 15,
-				height: 65,
 				left: 46,
 				top: 20,
-				elem: $("p#five")
+				elem: $("#five")
 			});
+
+			Boxes.addEffects();
 
 			/**
 			 * When window is resized, then adjust the boxes.

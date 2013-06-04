@@ -18,12 +18,11 @@ define(["jquery"], function($) {
 			this.section.css("width", this.canvas["width"] +"px");
 		},
 
-		getHeight: function() {
-			return this.canvas["height"];
-		},
-
-		getWidth: function() {
-			return this.canvas["width"];
+		get: function() {
+			return {
+				height: this.canvas["height"],
+				width: this.canvas["width"]
+			};
 		},
 
 		setSection: function(elem) {

@@ -13,12 +13,19 @@ define(["jquery", "box"], function($, Box) {
 			}
 		},
 
-		/**
-		 * Fire the animations for all of the boxes.
-		 */
-		move: function(height, width) {
+		addEffects: function() {
 			for(index in this.items) {
-				this.items[index].animate((height * .01), (width * .01));
+				this.items[index].addEffects();
+			}
+		},
+
+		/**
+		 * Adjust the boxes when the window changes.
+		 */
+		adjust: function(bounds) {
+			for(index in this.items) {
+				this.items[index].reposition(bounds);
+				this.items[index].resize(bounds);
 			}
 		}
 	};

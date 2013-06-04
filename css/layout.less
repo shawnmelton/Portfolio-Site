@@ -21,7 +21,6 @@
 @purple: #7908aa;
 @yellow: #f3fd00;
 @orange: #ff8100;
-@textDarkenValue: 25%;
 
 /* Style implementations */
 html {
@@ -107,54 +106,84 @@ html {
 				position: relative;
 				overflow: hidden;
 
-				>p {
+				>div {
 					position: absolute;
 					margin: 0;
-					height: 250px;
 					width: 300px;
 					box-shadow: 0 0 5px #000;
-					opacity: 0.7;
-					padding: 15px;
-					filter: alpha(opacity=70);
+					opacity: 0.85;
+					padding: 15px 15px 25px;
+					filter: alpha(opacity=85);
 					cursor: pointer;
 
-					>strong {
-						display: block;
-						margin-bottom: 10px;
-						font-size: @fontSize + 5;
+					>h3 {
+						margin: 0 0 10px;
+						font-size: @fontSize + 12;
 						font-weight: normal;
 						text-transform: uppercase;
 					}
 
+					>ol {
+						margin: 0;
+						padding: 5px 25px;
+						list-style: none;
+
+						>li {
+							padding: 5px 0;
+						}
+					}
+
+					>p.skills {
+						font-size: @fontSize + 4;
+
+						>small {
+							font-size: @fontSize;
+							padding: 0 5px;
+						}
+						>strong {
+							font-size: @fontSize + 8;
+							padding: 0 5px;
+							font-weight: normal;
+						}
+					}
+
+					.box (@color) {
+						background: @color;
+						background: linear-gradient(@color, lighten(@color, 15%));
+						color: darken(@color, 25%);
+
+						a {
+							color: darken(@color, 15%);
+							font-size: 110%;
+
+							&:hover { text-decoration: none; }
+						}
+					}
+
 					&#one {
-						background: @blue;
 						left: 0
 						top: 0;
-						color: darken(@blue, @textDarkenValue);
+						.box(@blue);
 					}
 					&#two {
-						background: @pink;
 						left: 0;
 						top: 250px;
-						color: darken(@pink, @textDarkenValue);
+						.box(@pink);
 					}
 					&#three {
-						background: @orange;
 						left: 300px;
 						top: 0;
-						color: darken(@orange, @textDarkenValue);
+						.box(@orange);
 					}
 					&#four {
-						background: @purple;
 						left: 300px;
 						top: 250px;
-						color: darken(@purple, @textDarkenValue);
+						.box(@purple);
 					}
 					&#five {
-						background: @green;
 						left: 600px;
 						top: 250px;
-						color: darken(@green, @textDarkenValue);
+						.box(@green);
 					}
 				}
 			}
