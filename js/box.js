@@ -32,7 +32,11 @@ define(["jquery", "jqueryui"], function($, jui) {
 				$(this).css("opacity", 0.85);
 			});
 
-			this.properties["elem"].draggable();
+			var parentId = this.properties["elem"].parent().attr("id");
+			this.properties["elem"].draggable({
+				containment: "#"+ parentId,
+				scroll: false
+			});
 		},
 
 		/**
@@ -49,9 +53,35 @@ define(["jquery", "jqueryui"], function($, jui) {
 		 * Resize the box according to the provided bounds.
 		 */
 		resize: function(bounds) {
+			var _this = this;
+			var height = bounds.height;
+			var elem = this.properties["elem"];
 			this.properties["elem"].animate({
 				width: (bounds.width * .3) +"px"
-			}, this.properties["speed"]);
+			}, this.properties["speed"], function() {
+				_this.verifyWithinBounds(height, elem);
+			});
+		},
+
+		/**
+		 * Check to make sure the box is not too tall for boundaries.  
+		 * Also, make sure the that positioning doesn't leave the box running off of the view.
+		 * @param height The height of the boundary
+		 */
+		verifyWithinBounds: function(height, elem) {
+			// Shrink font size until box is able to fit in bounds.
+			if(height < elem.outerHeight()) {
+				window.less.modifyVars({
+					'@fontSize': '11px'
+				});
+			}
+
+			// Move box to fit in bounds.
+			if(height < (elem.outerHeight() + parseInt(elem.css("top")))) {
+				elem.animate({
+					top: (height - elem.outerHeight() - 5) +"px"
+				}, 100);
+			}
 		}
 	};
 

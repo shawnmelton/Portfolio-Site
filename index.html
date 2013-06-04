@@ -4,9 +4,14 @@
 		<title>Shawn Melton > Portfolio</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<base href="/">
-		<link rel="stylesheet/less" type="text/css" href="css/layout.less?v=9">
+		<link rel="stylesheet/less" type="text/css" href="css/layout.less?v=1">
 		<script type="text/javascript" data-main="js/bootstrap" src="js/libs/require.js"></script>
 		<!--[if lt IE 9]><script src="js/libs/html5.js"></script><![endif]-->
+		<script type="text/JavaScript">
+			less = {
+				poll: 1000
+			};
+		</script>
 	</head>
 	<body>
 		<header>
@@ -21,13 +26,13 @@
 			<h2>Web + Mobile Programmer</h2>
 		</header>
 		<div>
-			<section>
+			<section id="container">
 				<div id="one">
 					<h3>Summary</h3>
 					<p>My name is Shawn Melton and I am a web and mobile programmer.  I have been developing applications using server-side and client-side technologies for eight years.</p>
 				</div>
 				<div id="two">
-					<h3>Resume</h3>
+					<h3>History</h3>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non euismod nisl. Donec dapibus diam euismod massa tincidunt sed mattis metus sollicitudin.
 				</div>
 				<div id="three">
@@ -36,10 +41,11 @@
 				</div>
 				<div id="four">
 					<h3>Links</h3>
-					<p>You can find me on the following sites:</p>
+					<p>You can use the following links to learn more about me:</p>
 					<ol>
 						<li><a href="https://github.com/shawnmelton" target="_blank">Github</a></li>
 						<li><a href="http://www.linkedin.com/profile/view?id=86181511" target="_blank">LinkedIn</a></li>
+						<li><a href="#" target="_blank">My Resume</a></li>
 					</ol>
 				</div>
 				<div id="five">

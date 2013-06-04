@@ -11,10 +11,10 @@
 /*  Base style declarations */
 @fontFamily: "Droid Sans", "DroidSans", "Lucida Sans", "Lucida Sans Unicode", "Helvetica Neue", Arial, sans-serif;
 @fontSize: 14px;
-@bgColor: #8f8f85;
+@bgColor: #afafa5;
 @headerBGColor: darken(@bgColor, 5%);
 @footerHeight: 40px;
-@textColor: #bebebe;
+@textColor: #d0d0d0;
 @blue: #057d9f;
 @pink: #d0006e;
 @green: #00b25c;
@@ -57,7 +57,7 @@ html {
 			}
 			>h1 { 
 				font-size: @fontSize + 18;
-				color: darken(@textColor, 5%);
+				color: darken(@textColor, 1%);
 				margin-right: 35px;
 				line-height: 40px;
 			}
@@ -129,7 +129,7 @@ html {
 						list-style: none;
 
 						>li {
-							padding: 5px 0;
+							padding: 4px 0;
 						}
 					}
 
@@ -149,12 +149,13 @@ html {
 
 					.box (@color) {
 						background: @color;
-						background: linear-gradient(@color, lighten(@color, 15%));
+						background: -ms-linear-gradient(lighten(@color, 5%), lighten(@color, 15%));
+						background: linear-gradient(lighten(@color, 5%), lighten(@color, 15%));
 						color: darken(@color, 25%);
 
 						a {
 							color: darken(@color, 15%);
-							font-size: 110%;
+							font-size: 120%;
 
 							&:hover { text-decoration: none; }
 						}
