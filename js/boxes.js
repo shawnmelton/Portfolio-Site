@@ -2,6 +2,7 @@ define(["jquery", "box"], function($, Box) {
 	var Boxes = function() {};
 	Boxes.prototype = {
 		items: [],
+		bounds: null,
 
 		/**
 		 * Add a new Box object and push it to the list of items.
@@ -9,7 +10,7 @@ define(["jquery", "box"], function($, Box) {
 		 */
 		add: function(config) {
 			if(typeof config === "object") {
-				this.items.push(new Box(config));
+				this.items.push(new Box(config, this.bounds));
 			}
 		},
 
@@ -22,11 +23,14 @@ define(["jquery", "box"], function($, Box) {
 		/**
 		 * Adjust the boxes when the window changes.
 		 */
-		adjust: function(bounds) {
+		adjust: function() {
 			for(index in this.items) {
-				this.items[index].reposition(bounds);
-				this.items[index].resize(bounds);
+				this.items[index].reposition();
 			}
+		},
+
+		setBounds: function(bounds) {
+			this.bounds = bounds;
 		}
 	};
 
