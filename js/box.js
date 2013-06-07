@@ -67,7 +67,7 @@ define(["jquery", "jqueryui"], function($, jui) {
 		 */
 		getNewSize: function() {
 			var origBoxSize = (this.bounds.get().width * .3); // 30% of boundary width.
-			var boxSizeDiff = origBoxSize * .5; // It will shrink 20% when it has reached the outer 25% of screen.
+			var boxSizeDiff = origBoxSize * .5; // It will shrink 50% when it has reached the boundary.
 			var tippingPt = (this.bounds.get().width - origBoxSize) / 2;
 			var newBoxSize = origBoxSize;
 
