@@ -40,37 +40,92 @@ define(["jquery", "jqueryui"], function($, jui) {
 
 			var _this = this;
 			this.properties.elem.draggable({
-				containment: "#"+ this.properties.elem.parent().attr("id"),
+				//containment: "#"+ this.properties.elem.parent().attr("id"),
 				scroll: false,
+				drag: function() {
+					_this.resize();
+				},
 				stop: function() {
-					_this.resize(_this);
+					_this.keepInBounds();
 				}
 			});
+		},
+
+		/**
+		 * Get the Y coordinate for the bottom edge of this box.
+		 */
+		getBottomY: function() {
+			return (this.getTopY() + this.properties.elem.outerHeight());
+		},
+
+		getLeftX: function() {
+			return parseInt(this.properties.elem.css("left"));
 		},
 
 		/**
 		 * Box should shrink as it approaches the right or left edge of the browser.
 		 * Centered content should be full size.
 		 */
-		getNewWidth: function() {
-			var newBoxWidth = (this.bounds.get().width * .4); // 30% of boundary width.
-			var tippingPt = (this.bounds.get().width - newBoxWidth) / 2;
+		getNewSize: function() {
+			var origBoxSize = (this.bounds.get().width * .4); // 40% of boundary width.
+			var boxSizeDiff = origBoxSize * .2; // It will shrink 20% when it has reached the outer 25% of screen.
+			var tippingPt = (this.bounds.get().width - origBoxSize) / 2;
+			var newBoxSize = origBoxSize;
 
 			// Left corner is past tipping point.
-			if(parseInt(this.properties.elem.css("left")) < tippingPt) {
-				newBoxWidth *= parseInt(this.properties.elem.css("left")) / tippingPt;
+			if(this.getLeftX() < tippingPt) {
+				if(this.getLeftX() >= (tippingPt * .75)) { // 75%
+					newBoxSize = origBoxSize - (boxSizeDiff * .66);
+				} else if(this.getLeftX() >= (tippingPt * .5)) { // 50%
+					newBoxSize = origBoxSize - (boxSizeDiff * .33);
+				} else { // 25%
+					newBoxSize = origBoxSize - boxSizeDiff;
+				}
+			} else if(this.getRightX() > (this.bounds.get().width - tippingPt)) {
+				if(this.getRightX() >= ((this.bounds.get().width - tippingPt) * .75)) { // 75%
+					newBoxSize = origBoxSize - (boxSizeDiff * .66);
+				} else if(this.getRightX() >= ((this.bounds.get().width - tippingPt) * .5)) { // 50%
+					newBoxSize = origBoxSize - (boxSizeDiff * .33);
+				} else { // 25%
+					newBoxSize = origBoxSize - boxSizeDiff;
+				}
+
+				this.properties.elem.css("left", (this.properties.elem.outerWidth() - newBoxSize) +"px");
 			}
 
-			// Right corner is past tipping point
-			if((parseInt(this.properties.elem.css("left")) + this.properties.elem.outerWidth()) > (this.bounds.get().width - tippingPt)) {
-				newBoxWidth *= (this.bounds.get().width - (parseInt(this.properties.elem.css("left")) + this.properties.elem.outerWidth())) / tippingPt;
+			return newBoxSize;
+		},
+
+		/**
+		 * Get the X coordinate for the right edge of this box.
+		 */
+		getRightX: function() {
+			return (this.getLeftX() + this.properties.elem.outerWidth());
+		},
+
+		getTopY: function() {
+			return parseInt(this.properties.elem.css("top"));
+		},
+
+		/**
+		 * Make sure that this box stays within the bounds.
+		 */
+		keepInBounds: function() {
+			// Vertical correction.
+			if(this.getTopY() < 0) {
+				this.properties.elem.animate({top: "3px"});
+			} else if(this.getBottomY() > this.bounds.get().height) {
+				this.properties.elem.animate({
+					top: (this.bounds.get().height - this.properties.elem.outerHeight() - 3) +"px"
+				});
 			}
 
-			if(newBoxWidth < 50) { // Don't let the box grow too small.
-				return 50;
+			// Horizontal correction.
+			if(this.getLeftX() < 0) {
+				this.properties.elem.animate("left", "3px");
+			} else if(this.getRightX() > this.bounds.get().width) {
+				this.properties.elem.css("left", (this.bounds.get().width - this.properties.elem.outerWidth() - 3) +"px");
 			}
-
-			return newBoxWidth;
 		},
 
 		/**
@@ -88,8 +143,8 @@ define(["jquery", "jqueryui"], function($, jui) {
 		 */
 		reposition: function() {
 			if(this.bounds.isHistoryValid()) {
-				this.move((parseInt(this.properties.elem.css("left")) * (this.bounds.get().width / this.bounds.getHistory().width)), 
-					(parseInt(this.properties.elem.css("top")) * (this.bounds.get().height / this.bounds.getHistory().height)));
+				this.move((this.getLeftX() * (this.bounds.get().width / this.bounds.getHistory().width)), 
+					(this.getTopY() * (this.bounds.get().height / this.bounds.getHistory().height)));
 			}
 
 			this.resize(this);
@@ -98,41 +153,10 @@ define(["jquery", "jqueryui"], function($, jui) {
 		/**
 		 * Resize the box according to the provided bounds.
 		 */
-		resize: function(_this) {
-			var height = _this.bounds.get().height;
-			var elem = _this.properties.elem;
-			this.properties.elem.animate({
-				width: _this.getNewWidth() +"px"
-			}, this.properties.speed, function() {
-				_this.verifyWithinBounds(height, elem);
-			});
-		},
-
-		/**
-		 * Check to make sure the box is not too tall for boundaries.  
-		 * Also, make sure the that positioning doesn't leave the box running off of the view.
-		 * @param height The height of the boundary
-		 */
-		verifyWithinBounds: function(height, elem) {
-			// Shrink font size until box is able to fit in bounds.
-			elem.css("max-height", "");
-			var elemHeight = elem.outerHeight();
-
-			if(height < elemHeight) {
-				window.less.modifyVars({
-					'@fontSize': '11px'
-				});
-
-				elemHeight = height - 100;
-				elem.css("max-height", elemHeight +"px");
-			}
-
-			// Move box to fit in bounds.
-			if(height < (elem.outerHeight() + parseInt(elem.css("top")))) {
-				elem.animate({
-					top: (height - elemHeight - 50) +"px"
-				});
-			}
+		resize: function() {
+			var newSize = this.getNewSize() +"px";
+			this.properties.elem.css("width", newSize).css("height", newSize);
+			this.keepInBounds();
 		}
 	};
 

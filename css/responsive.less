@@ -1,0 +1,88 @@
+@fontSize: 14px;
+@textColor: #d0d0d0;
+
+/* Tablet */
+@media screen and (max-width:800px) {
+	html {
+		body {
+			border-left-width: 10px;
+			
+			header {
+				padding-right: 50px;
+
+				>h1 { font-size: @fontSize + 15; }
+				>h2 {
+					font-size: @fontSize + 8;
+					padding-top: 3px;
+				}
+			}
+		}
+	}
+}
+
+/* Smaller Tablet */
+@media screen and (max-width:750px) {
+	html {
+		body {
+			header {
+				>h1 { font-size: @fontSize + 13; }
+				>h2 {
+					font-size: @fontSize + 6;
+					text-shadow: none;
+				}
+			}
+
+			footer { font-size: @fontSize - 3; }
+		}
+	}
+}
+
+/* Larger Phone */
+@media screen and (max-width:650px) {
+	html {
+		body {
+			header {
+				border-left-width: 8px;
+				padding-right: 25px;
+
+				>h1 { 
+					font-size: @fontSize + 9;
+					line-height: @fontSize + 11;
+					margin-right: 0;
+				}
+				>h2 {
+					font-size: @fontSize;
+					line-height: @fontSize + 2;
+					color: lighten(@textColor, 5%);
+					padding-top: 0;
+				}
+
+				>h1, >h2 { float: none; }
+			}
+		}
+	}
+}
+
+/* Phone */
+@media screen and (max-width:490px) {
+	html {
+		body {
+			header {
+				border-left-width: 5px;
+
+				>h1 { 
+					font-size: @fontSize + 7;
+					line-height: @fontSize + 9;
+				}
+				>h2 {
+					font-size: @fontSize - 2;
+					line-height: @fontSize;
+				}
+
+				>h1, >h2 { float: none; }
+			}
+
+			footer { font-size: @fontSize - 4; }
+		}
+	}
+}
