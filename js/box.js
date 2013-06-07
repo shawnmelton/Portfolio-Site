@@ -40,7 +40,6 @@ define(["jquery", "jqueryui"], function($, jui) {
 
 			var _this = this;
 			this.properties.elem.draggable({
-				//containment: "#"+ this.properties.elem.parent().attr("id"),
 				scroll: false,
 				drag: function() {
 					_this.resize();
@@ -67,30 +66,16 @@ define(["jquery", "jqueryui"], function($, jui) {
 		 * Centered content should be full size.
 		 */
 		getNewSize: function() {
-			var origBoxSize = (this.bounds.get().width * .4); // 40% of boundary width.
-			var boxSizeDiff = origBoxSize * .2; // It will shrink 20% when it has reached the outer 25% of screen.
+			var origBoxSize = (this.bounds.get().width * .3); // 30% of boundary width.
+			var boxSizeDiff = origBoxSize * .5; // It will shrink 20% when it has reached the outer 25% of screen.
 			var tippingPt = (this.bounds.get().width - origBoxSize) / 2;
 			var newBoxSize = origBoxSize;
 
 			// Left corner is past tipping point.
 			if(this.getLeftX() < tippingPt) {
-				if(this.getLeftX() >= (tippingPt * .75)) { // 75%
-					newBoxSize = origBoxSize - (boxSizeDiff * .66);
-				} else if(this.getLeftX() >= (tippingPt * .5)) { // 50%
-					newBoxSize = origBoxSize - (boxSizeDiff * .33);
-				} else { // 25%
-					newBoxSize = origBoxSize - boxSizeDiff;
-				}
-			} else if(this.getRightX() > (this.bounds.get().width - tippingPt)) {
-				if(this.getRightX() >= ((this.bounds.get().width - tippingPt) * .75)) { // 75%
-					newBoxSize = origBoxSize - (boxSizeDiff * .66);
-				} else if(this.getRightX() >= ((this.bounds.get().width - tippingPt) * .5)) { // 50%
-					newBoxSize = origBoxSize - (boxSizeDiff * .33);
-				} else { // 25%
-					newBoxSize = origBoxSize - boxSizeDiff;
-				}
-
-				this.properties.elem.css("left", (this.properties.elem.outerWidth() - newBoxSize) +"px");
+				newBoxSize = origBoxSize - (boxSizeDiff * (1 - (this.getLeftX() / tippingPt)));
+			} else if(this.getLeftX() > (this.bounds.get().width - tippingPt - origBoxSize)) {
+				newBoxSize = origBoxSize - (boxSizeDiff * (this.getLeftX() / this.bounds.get().width));
 			}
 
 			return newBoxSize;
@@ -156,7 +141,6 @@ define(["jquery", "jqueryui"], function($, jui) {
 		resize: function() {
 			var newSize = this.getNewSize() +"px";
 			this.properties.elem.css("width", newSize).css("height", newSize);
-			this.keepInBounds();
 		}
 	};
 
