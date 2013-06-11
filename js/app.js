@@ -9,8 +9,8 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 			Boxes.adjust(Bounds.get());
 		};
 
-		var initialize = function(){
-			Bounds.setSection($("body > div > section"));
+		var initBoxView = function() {
+			Bounds.setSection($("body > section"));
 			Boxes.setBounds(Bounds);
 
 			// Create objects to map to the boxes in markup.
@@ -59,6 +59,10 @@ define(["jquery", "less", "bounds", "boxes"], function($, less, Bounds, Boxes){
 
 				resizeTimeout = setTimeout(adjustBoxes, 250);
 			});
+		};
+
+		var initialize = function(){
+			
 		};
 	
 		return {

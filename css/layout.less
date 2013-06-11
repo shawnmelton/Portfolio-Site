@@ -22,7 +22,7 @@
 @yellow: #f3fd00;
 @orange: #ff8100;
 
-/* Style implementations */
+/* Share style */
 html {
 	>body {
 		margin: 0;
@@ -101,95 +101,7 @@ html {
 			}
 		}
 
-		>div {
-			>section {
-				position: relative;
-				overflow: hidden;
-
-				>div {
-					position: absolute;
-					margin: 0;
-					width: 300px;
-					box-shadow: 0 0 5px #000;
-					opacity: 0.85;
-					padding: 15px 15px 25px;
-					filter: alpha(opacity=85);
-					cursor: pointer;
-					overflow: hidden;
-
-					>h3 {
-						margin: 0 0 10px;
-						font-size: @fontSize + 12;
-						font-weight: normal;
-						text-transform: uppercase;
-					}
-
-					>ol {
-						margin: 0;
-						padding: 5px 25px;
-						list-style: none;
-
-						>li {
-							padding: 4px 0;
-						}
-					}
-
-					>p.skills {
-						font-size: @fontSize + 4;
-
-						>small {
-							font-size: @fontSize;
-							padding: 0 5px;
-						}
-						>strong {
-							font-size: @fontSize + 8;
-							padding: 0 5px;
-							font-weight: normal;
-						}
-					}
-
-					.box (@color) {
-						background: @color;
-						background: -ms-linear-gradient(lighten(@color, 5%), lighten(@color, 10%));
-						background: linear-gradient(lighten(@color, 5%), lighten(@color, 10%));
-						color: darken(@color, 35%);
-
-						a {
-							color: darken(@color, 25%);
-							font-size: 120%;
-
-							&:hover { text-decoration: none; }
-						}
-					}
-
-					&#one {
-						left: 0
-						top: 0;
-						.box(@blue);
-					}
-					&#two {
-						left: 0;
-						top: 250px;
-						.box(@pink);
-					}
-					&#three {
-						left: 300px;
-						top: 0;
-						.box(@orange);
-					}
-					&#four {
-						left: 300px;
-						top: 250px;
-						.box(@purple);
-					}
-					&#five {
-						left: 600px;
-						top: 250px;
-						.box(@green);
-					}
-				}
-			}
-		}
+		>section { position: relative; }
 
 		>footer {
 			position: fixed;
@@ -201,6 +113,200 @@ html {
 			text-align: center;
 			color: darken(@textColor, 35%);
 			font-size: @fontSize - 2;
+		}
+	}
+}
+
+/* Box Style implementations */
+html {
+	>body.boxes {
+		>section {
+			>div {
+				position: absolute;
+				margin: 0;
+				width: 300px;
+				box-shadow: 0 0 5px #000;
+				opacity: 0.85;
+				padding: 15px 15px 25px;
+				filter: alpha(opacity=85);
+				cursor: pointer;
+				overflow: hidden;
+
+				>h3 {
+					margin: 0 0 10px;
+					font-size: @fontSize + 12;
+					font-weight: normal;
+					text-transform: uppercase;
+				}
+
+				>ol {
+					margin: 0;
+					padding: 5px 25px;
+					list-style: none;
+
+					>li {
+						padding: 4px 0;
+					}
+				}
+
+				>p.skills {
+					font-size: @fontSize + 4;
+
+					>small {
+						font-size: @fontSize;
+						padding: 0 5px;
+					}
+					>strong {
+						font-size: @fontSize + 8;
+						padding: 0 5px;
+						font-weight: normal;
+					}
+				}
+
+				>span { display: none; }
+
+				.box (@color) {
+					background: @color;
+					background: -ms-linear-gradient(lighten(@color, 5%), lighten(@color, 10%));
+					background: linear-gradient(lighten(@color, 5%), lighten(@color, 10%));
+					color: darken(@color, 35%);
+
+					a {
+						color: darken(@color, 25%);
+						font-size: 120%;
+
+						&:hover { text-decoration: none; }
+					}
+				}
+
+				&#one {
+					left: 0
+					top: 0;
+					.box(@blue);
+				}
+				&#two {
+					left: 0;
+					top: 250px;
+					.box(@pink);
+				}
+				&#three {
+					left: 300px;
+					top: 0;
+					.box(@orange);
+				}
+				&#four {
+					left: 300px;
+					top: 250px;
+					.box(@purple);
+				}
+				&#five {
+					left: 600px;
+					top: 250px;
+					.box(@green);
+				}
+			}
+		}
+	}
+}
+
+/* List Style implementations */
+html {
+	>body.list {
+		>section {
+			padding-bottom: 40px;
+
+			>div {
+				position: relative;
+				margin: 25px 35px;
+				opacity: 0.85;
+				padding: 15px 15px 25px;
+
+				>h3 {
+					margin: 0 0 10px;
+					font-size: @fontSize + 12;
+					font-weight: normal;
+					text-transform: uppercase;
+				}
+
+				>ol {
+					margin: 0;
+					padding: 5px 25px;
+					list-style: none;
+
+					>li {
+						padding: 4px 0;
+					}
+				}
+
+				>p.skills {
+					font-size: @fontSize + 4;
+
+					>small {
+						font-size: @fontSize;
+						padding: 0 5px;
+					}
+					>strong {
+						font-size: @fontSize + 8;
+						padding: 0 5px;
+						font-weight: normal;
+					}
+				}
+
+				>span {
+					display: block;
+					height: 20px;
+					width: 20px;
+					background: #000;
+					position: absolute;
+					top: -20px;
+					left: -20px;
+				}
+
+				.box (@color) {
+					border: 20px solid fadeout(@color, 60%);
+					border-width: 20px 0 0 20px;
+					background: lighten(@bgColor, 20%);
+					color: darken(@textColor, 40%);
+
+					a {
+						color: darken(@textColor, 55%);
+						font-size: 120%;
+
+						&:hover { text-decoration: none; }
+					}
+
+					>span { background: @color; }
+				}
+
+				&#one { .box(@blue); }
+				&#two { 
+					.box(@pink);
+
+					>div {
+						>h4 {
+							font-weight: normal;
+							margin: 5px 0 2px;
+							font-size: @fontSize + 4;
+						}
+
+						>p {
+							margin: 6px 0;
+
+							>a { font-size: @fontSize; }
+						}
+					}
+				}
+				&#three { .box(@orange); }
+				&#four { .box(@purple); }
+				&#five { .box(@green); }
+			}
+		}
+
+		>footer {
+			height: 40px;
+			line-height: 40px;
+			background: @bgColor;
+			background: linear-gradient(lighten(@bgColor, 5%), lighten(@bgColor, 5%));
 		}
 	}
 }
